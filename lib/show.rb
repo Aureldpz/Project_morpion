@@ -1,8 +1,8 @@
-require_relative 'Board'
+
 
 class Show
-  def initialize(board)
-    @board = show_board
+  def initialize
+    @board = board
   end
 
   def show_board

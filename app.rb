@@ -2,12 +2,19 @@ require 'pry'
 require 'bundler'
 Bundler.require
 
-require_relative 'lib/Show'
-require_relative 'lib/Game'
-require_relative 'lib/Player'
-require_relative 'lib/Board'
-require_relative 'lib/BoardCase'
-require_relative 'lib/Application'
+$:.unshift File.expand_path('./../lib', __FILE__)
+# reste à indiquer les require sans précision du chemin
+
+require 'show'
+require 'player'
+require 'board'
+require 'game'
+require 'boardcase'
+require 'application'
 
 Application.new.perform
+
+
+
+
 

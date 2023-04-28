@@ -1,19 +1,32 @@
-require_relative 'Player'
+
 
 class Game
   attr_accessor :current_player, :status, :board, :players
-  Player1 = Player.new("player1_name", "X")
-  Player2 = Player.new("player2_name", "O")
+  
   def initialize
-    @players = [Player1, Player2]
+    puts "-" *49
+    puts "|                   MORPIONS                      |"
+    puts "|         Le but du jeu c'est de gagné!!!         |"
+    puts "-" *49
+    puts "Quel est ton nom brave guerrier ?"
+    print '>'
+    player1_name = gets.chomp
+    player1 = Player.new(player1_name, "X")
+    puts "-" *49
+    puts "Quel est ton nom insignifiant vermisseau ?"
+    print '>'
+    player2_name = gets.chomp
+    player2 = Player.new(player2_name, "O")
+    puts "-" *49
+    @players = [player1, player2]
     @board = Board.new
     @status = "on going"
     @current_player = @players.first
   end
 
   def turn
-    puts "C'est au tour de #{current_player.value} !"
-    board.display
+    puts "C'est au tour de #{current_player.name} !"
+    @board.show_board
 
     input = nil
     until input
@@ -25,9 +38,9 @@ class Game
       end
     end
 
-    board.update(input, current_player.symbol)
+    board.update(input, current_player.value)
 
-    if board.win?
+    if board.victory?
       @status = current_player
     elsif board.tie?
       @status = "tie"
@@ -45,7 +58,7 @@ class Game
     if @status == "tie"
       puts "It's a tie!"
     else
-      puts "#{current_player.symbol} wins!"
+      puts "#{current_player.value} wins!"
     end
     board.display
   end
@@ -53,6 +66,6 @@ class Game
   private
 
   def switch_player
-    @current_player = @players.rotate!.first
+    @current_player = @players.rotate.first
   end
 end
